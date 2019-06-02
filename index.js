@@ -7,5 +7,13 @@ function createStore(){
 
 	let state
 
+	// return the state of the application 
+
 	const getState = () => state 
+
+	//returns an object whe the getState is called
+
+	return{
+		getState
+	}
 }
