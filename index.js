@@ -6,25 +6,19 @@ function createStore(){
 	// 4.update the state
 
 	let state
+	// array of listeners 
+	let listeners = []
 
 	// return the state of the application 
 
-	const getState = () => state 
+	const getState = () => state
+	const subscribe = (listener) =>{
+		listeners.push(listener)
 
-	//returns an object whe the getState is called
-
-	return{
-		getState
-	}
-}
-
-const store = createStore();
-
-store.subscribe(()  => {
-	console.log('the state is :' store.getState())
-})
+		return() =>{
+			listeners = listeners.filter((l) => l !== listener)
+		}
+	} 
 
 
-store.subscribe(()  => {
-	console.log('the state chnaged :')
-})
+	
