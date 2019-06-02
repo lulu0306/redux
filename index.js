@@ -17,3 +17,14 @@ function createStore(){
 		getState
 	}
 }
+
+const store = createStore();
+
+store.subscribe(()  => {
+	console.log('the state is :' store.getState())
+})
+
+
+store.subscribe(()  => {
+	console.log('the state chnaged :')
+})
