@@ -33,4 +33,10 @@ function createStore(){
 	} 
 
 
+// function to update the state on the actual store 
+const dispatch = (action) => {
+
+}
+
+
 	
