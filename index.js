@@ -1,16 +1,7 @@
-// reducer function
 
-function todos(state = [],action){
-	if (action.type === 'ADD_TODO') {
-		return state.cocant([action.todo]) 
-	}
-	return state
-}
+//Library Code
 
-
-
-
-function createStore(){
+function createStore(reducer){
 	//The store should have four parts 
 	// 1. The state
 	// 2. Get the state
@@ -36,7 +27,30 @@ function createStore(){
 // function to update the state on the actual store 
 const dispatch = (action) => {
 
+	state = reducer(state, action);
+	listeners.forEach((listener) => listener());
 }
 
 
+return{
+	getState,
+	subscribe,
+	dispatch
+}
+
+}
+
+//App code
+
+// reducer function
+
+function todos(state = [],action){
+	if (action.type === 'ADD_TODO') {
+		return state.cocant([action.todo]) 
+	}
+	return state
+}
+
 	
+
+
