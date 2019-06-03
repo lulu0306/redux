@@ -1,4 +1,6 @@
-function todos(state,action){
+// reducer function
+
+function todos(state = [],action){
 	if (action.type === 'ADD_TODO') {
 		return state.cocant([action.todo]) 
 	}
