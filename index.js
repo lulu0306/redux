@@ -67,6 +67,33 @@ function removeTodoAction(id){
 	}
 }
 
+function toggleTodoAction(id){
+	return{
+
+		type: TOGGLE_TODO,
+		id
+
+	}
+}
+
+
+function addGoalAction(goal){
+	return{
+		type: ADD_GOAL,
+		goal
+	}
+}
+
+
+
+function removeGoalAction(id){
+	return{
+		type: REMOVE_GOAL,
+		id
+
+	}
+}
+
 
 function todos(state = [],action){
 
@@ -110,11 +137,36 @@ store.subscribe(() => {
 })
 
 
-store.dispatch({
-	type:ADD_TODO,
-	todo:{
+
+store.dispatch(addGoalAction({
 		id:0,
 		name:'Learn Redux',
 		complete: false
-	}
-})
+	}))
+
+
+store.dispatch(addGoalAction({
+		id:1,
+		name:'Walk the dog',
+		complete: true
+	}))
+
+
+store.dispatch(addGoalAction({
+		id:2,
+		name:'go to the gym',
+		complete: false
+	}))
+  
+
+store.dispatch(removeTodoAction(1));
+
+store.dispatch(toggleTodoAction(0));
+
+
+store.dispatch(addGoalAction({
+	id:0,
+	name: 'loose weight',
+	complete: false
+}))
+
