@@ -4,9 +4,25 @@
 	<title>Todos Goals App</title>
 </head>
 <body>
+
+<div>
+	<h1>Todo List</h1>
+	<input type="text" id="todo"  placeholder="add Todo" />	
+	<button id="todoBtn">Add todo</button>
+	<ul id="todos"></ul>
+</div>
+<div>
+	<h1>
+		Goals List
+	</h1>
+	<input type="text" id="goal"  placeholder="add Goal" />	
+	<button id="goalBtn">Add Goal</button>
+	<ul id="goals"></ul>
+</div>
+
 <script type="text/javascript" >
 	
-	
+
 //Library Code
 
 function createStore(reducer){
@@ -59,10 +75,10 @@ const ADD_GOAL ='ADD_GOAL';
 const REMOVE_GOAL = 'REMOVE_GOAL';
 
 
-function addTodoAction(action){
+function addTodoAction(todo){
 	return{
 		type:ADD_TODO,
-		todo
+		todo,
 	}
 
 }
@@ -71,7 +87,7 @@ function addTodoAction(action){
 function removeTodoAction(id){
 	return{
 		type:REMOVE_TODO,
-		id
+		id,
 	}
 }
 
@@ -79,7 +95,7 @@ function toggleTodoAction(id){
 	return{
 
 		type: TOGGLE_TODO,
-		id
+		id,
 
 	}
 }
@@ -88,7 +104,7 @@ function toggleTodoAction(id){
 function addGoalAction(goal){
 	return{
 		type: ADD_GOAL,
-		goal
+		goal,
 	}
 }
 
@@ -97,7 +113,7 @@ function addGoalAction(goal){
 function removeGoalAction(id){
 	return{
 		type: REMOVE_GOAL,
-		id
+		id,
 
 	}
 }
@@ -112,12 +128,13 @@ function todos(state = [],action){
 		return state.filter((todo) => todo.id !== action.id )
 		case TOGGLE_TODO:
 		return state.map((todo) => todo.id !== action.id ? todo : 
-			Object.assing({}, todo, {complete: !todo.complete}))
+		Object.assign({}, todo, {complete: !todo.complete}))
 		default: 
 		return state
 	}
 
 }
+
 
 function goals(state =[], action){
 
@@ -146,37 +163,40 @@ store.subscribe(() => {
 
 
 
-store.dispatch(addGoalAction({
-		id:0,
-		name:'Learn Redux',
-		complete: false
-	}))
+store.dispatch(addTodoAction({
+	id: 0,
+	name: 'Walk the dog',
+	complete: false,
+}))
 
 
-store.dispatch(addGoalAction({
-		id:1,
-		name:'Walk the dog',
-		complete: true
-	}))
+store.dispatch(addTodoAction({
+	id: 1,
+	name: 'Learn Redux',
+	complete: true,
+}))
 
+store.dispatch(addTodoAction({
+	id: 2,
+	name: 'Go to the gym',
+	complete: true,
+}))
 
-store.dispatch(addGoalAction({
-		id:2,
-		name:'go to the gym',
-		complete: false
-	}))
-  
+store.dispatch(addTodoAction({
+	id: 0,
+	name: 'Learn React',
+	complete: false,
+}))
+
+  store.dispatch(removeTodoAction(0));
+  store.dispatch(toggleTodoAction(2));
+  store.dispatch(removeGoalAction(0))
 
 store.dispatch(removeTodoAction(1));
 
 store.dispatch(toggleTodoAction(0));
 
 
-store.dispatch(addGoalAction({
-	id:0,
-	name: 'loose weight',
-	complete: false
-}))
 
 
 </script>
