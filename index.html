@@ -113,17 +113,48 @@ function goals(state =[], action){
 	}
 }
 
-/*function app(state = {},action){
-	return{
-		todos: todos(state.todos,action),
-		goals: goals(state.goals,action),
-	}
-}*/
+
+
+
+const checker = (store) => (next) => (action) => {
+
+	if(
+		action.type === ADD_TODO &&
+		action.todo.name.toLowerCase().includes('bitcoin')
+		){
+		return alert('Nope, thats a bad idea')
+}
+
+if(
+	action.type === ADD_GOAL &&
+	action.goal.name.toLowerCase().includes('bitcoin')
+	){
+	return alert('Nope, thats a bad idea')
+}	
+return next(action)
+
+
+
+}
+
+
+const logger = (store) => (next) => (action) => {
+	console.group(action.type);
+	console.log('the action', action)
+	const result = next(action)
+	console.log('the new state is:', store.getState())
+	console.groupEnd()
+	return result
+}
+
+
+
+
 
 const store = Redux.createStore(Redux.combineReducers({
 	todos,
 	goals,
-}));
+}),Redux.applyMiddleware(checker,logger));
 
 store.subscribe(() => {
 	
@@ -137,40 +168,6 @@ todos.forEach(addTodoToDOM)
 
 })
 
-
-
-/*store.dispatch(addTodoAction({
-	id: 0,
-	name: 'Walk the dog',
-	complete: false,
-}))
-
-
-store.dispatch(addTodoAction({
-	id: 1,
-	name: 'Learn Redux',
-	complete: true,
-}))
-
-store.dispatch(addTodoAction({
-	id: 2,
-	name: 'Go to the gym',
-	complete: true,
-}))
-
-store.dispatch(addTodoAction({
-	id: 0,
-	name: 'Learn React',
-	complete: false,
-}))
-
-  store.dispatch(removeTodoAction(0));
-  store.dispatch(toggleTodoAction(2));
-  store.dispatch(removeGoalAction(0))
-
-store.dispatch(removeTodoAction(1));
-
-store.dispatch(toggleTodoAction(0));*/
 
 function addTodo(){
 
