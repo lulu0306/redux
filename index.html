@@ -202,23 +202,39 @@ class Todos extends React.Component{
 
 addItem = (e) => {
 e.preventDefault()
-const name = this.input.value
-this.input.value = ''
 
-this.props.store.dispatch(addTodoAction({
-name,
-complete: false,
-id: generateId(),
-}))
+return API.saveTodo(this.input.value)
+.then((todo) => {
+	this.props.store.dispatch(addTodoAction(todo))
+	this.input.value = ''
+})
+
+.catch(() =>{
+	alert('there was an error try again')
+})
 
 }
 
+//delete function on the store and also in database
 removeItem = (todo) => {
-	this.props.store.dispatch(removeTodoAction(todo.id))
+this.props.store.dispatch(removeTodoAction(todo.id))
+return API.deleteTodo(todo.id)
+.catch(() => {
+// add a method to catch errors 
+this.props.store.dispatch(addTodoAction(todo))
+alert('an error ocurred try again')
+})
+
 }
 
 toggleItem = (id) => {
 this.props.store.dispatch(toggleTodoAction(id))	
+
+return API.saveTodoToggle(id)
+.catch(() => {
+	this.props.store.dispatch(toggleTodoAction(id))
+	alert('an error ocurred try again')
+}) 
 }
 
 render(){
