@@ -74,6 +74,14 @@ function removeGoalAction(id){
 	}
 }
 
+function receiveDataAction(todos,goals){
+	return{
+		type:RECEIVE_DATA,
+		todos,
+		goals
+	}
+}
+
 
 function todos(state = [],action){
 
