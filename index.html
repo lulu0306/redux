@@ -301,35 +301,37 @@ return(
 )}}
 
 
-class ConnectedGoals extends React.Component {
-	render(){
-		return(
-			<Context.Consumer>
-			{(store)=> {
-				const {goals} = store.getState()
+// class ConnectedGoals extends React.Component {
+// 	render(){
+// 		return(
+// 			<Context.Consumer>
+// 			{(store)=> {
+// 				const {goals} = store.getState()
 
-				return <Goals goals={goals} dispatch={store.dispatch}/>
+// 				return <Goals goals={goals} dispatch={store.dispatch}/>
 
-			}}
-			</Context.Consumer>
-		)
-	}
-}
+// 			}}
+// 			</Context.Consumer>
+// 		)
+// 	}
+// }
 
-
+const ConnectedGoals = connect((store) =>{
+	goals:store.goals
+})(Goals)
 
 
 class App extends React.Component{
 componentDidMount(){
-const {store} = this.props
+const {dispatch} = this.props
 
-store.dispatch(handleInitialData())
-store.subscribe(()=> this.forceUpdate())
+dispatch(handleInitialData())
+//store.subscribe(()=> this.forceUpdate())
 }
 render(){
-const {store} = this.props
-const {loading} = store.getState()
-if(loading === true){
+// const {store} = this.props
+// const {loading} = store.getState()
+if(this.props.loading === true){
 	return <h3>Loading</h3>
 }
 return(
@@ -342,17 +344,21 @@ return(
 }
 
 
-class ConnectedApp extends React.Component{
-	render(){
-		return(
-			<Context.Consumer>
-			{(store) => (
-				<App store={store}/>
-			)}
-			</Context.Consumer>
-		)
-	}
-}
+// class ConnectedApp extends React.Component{
+// 	render(){
+// 		return(
+// 			<Context.Consumer>
+// 			{(store) => (
+// 				<App store={store}/>
+// 			)}
+// 			</Context.Consumer>
+// 		)
+// 	}
+// }
+
+const ConnectedApp = connect((store)=>{
+	loading: store.loading
+})(App)
 
 
 const Context = React.createContext()
